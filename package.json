@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
-    "@supabase/supabase-js": "^2.39.0",
+    "@supabase/supabase-js": "^2.89.0",
     "@tailwindcss/vite": "^4.1.12",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.540.0",
