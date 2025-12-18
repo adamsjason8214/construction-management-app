@@ -58,7 +58,7 @@ export const createProject = createAsyncThunk(
   'projects/createProject',
   async (projectData, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/create`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/.netlify/functions/projects-create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export const updateProject = createAsyncThunk(
   'projects/updateProject',
   async ({ projectId, updates }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/update`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/.netlify/functions/projects-update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export const deleteProject = createAsyncThunk(
   'projects/deleteProject',
   async (projectId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/delete`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/.netlify/functions/projects-delete`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export const addProjectMember = createAsyncThunk(
   'projects/addProjectMember',
   async ({ projectId, email, role }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/add-member`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/.netlify/functions/projects-add-member`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export const removeProjectMember = createAsyncThunk(
   'projects/removeProjectMember',
   async ({ projectId, memberId }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/remove-member`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/.netlify/functions/projects-remove-member`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
