@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Plus, Search, FolderOpen } from "lucide-react";
 import { fetchProjects } from "../store/slices/projectsSlice";
+import CreateProjectDialog from "../components/dialogs/CreateProjectDialog";
 
 export default function Projects() {
     const dispatch = useDispatch();
@@ -9,6 +10,7 @@ export default function Projects() {
 
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false);
     const [filters, setFilters] = useState({
         status: "ALL",
     });
@@ -47,10 +49,18 @@ export default function Projects() {
                     <h1 className="text-xl sm:text-2xl font-semibold text-white mb-1">Projects</h1>
                     <p className="text-gray-400 text-sm">Manage and track your construction projects</p>
                 </div>
-                <button className="flex items-center px-5 py-2 text-sm rounded bg-gradient-to-br from-blue-500 to-blue-600 text-white hover:opacity-90 transition">
+                <button
+                    onClick={() => setIsCreateProjectOpen(true)}
+                    className="flex items-center px-5 py-2 text-sm rounded bg-gradient-to-br from-blue-500 to-blue-600 text-white hover:opacity-90 transition"
+                >
                     <Plus className="size-4 mr-2" /> New Project
                 </button>
             </div>
+
+            <CreateProjectDialog
+                isOpen={isCreateProjectOpen}
+                onClose={() => setIsCreateProjectOpen(false)}
+            />
 
             {/* Search and Filters */}
             <div className="flex flex-col md:flex-row gap-4">
@@ -93,7 +103,10 @@ export default function Projects() {
                     <p className="text-gray-400 mb-6 text-sm">
                         Create your first construction project to get started
                     </p>
-                    <button className="flex items-center gap-1.5 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mx-auto text-sm">
+                    <button
+                        onClick={() => setIsCreateProjectOpen(true)}
+                        className="flex items-center gap-1.5 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mx-auto text-sm"
+                    >
                         <Plus className="size-4" />
                         Create Project
                     </button>

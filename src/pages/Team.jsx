@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { UsersIcon, Search, UserPlus, Shield, User } from "lucide-react";
 import { useSelector } from "react-redux";
+import InviteMemberDialog from "../components/dialogs/InviteMemberDialog";
 
 const Team = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const [isInviteOpen, setIsInviteOpen] = useState(false);
     const { profile } = useSelector((state) => state.auth);
 
     // Mock data - will be replaced with real data from backend
@@ -48,10 +50,18 @@ const Team = () => {
                         Manage team members and their roles
                     </p>
                 </div>
-                <button className="flex items-center px-5 py-2 rounded text-sm bg-gradient-to-br from-blue-500 to-blue-600 hover:opacity-90 text-white transition">
+                <button
+                    onClick={() => setIsInviteOpen(true)}
+                    className="flex items-center px-5 py-2 rounded text-sm bg-gradient-to-br from-blue-500 to-blue-600 hover:opacity-90 text-white transition"
+                >
                     <UserPlus className="w-4 h-4 mr-2" /> Invite Member
                 </button>
             </div>
+
+            <InviteMemberDialog
+                isOpen={isInviteOpen}
+                onClose={() => setIsInviteOpen(false)}
+            />
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
