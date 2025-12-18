@@ -6,47 +6,6 @@
 [build.environment]
   NODE_VERSION = "20"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 [functions]
   node_bundler = "esbuild"
-  included_files = ["netlify/functions/**/*.js"]
-
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
-
-[dev]
-  command = "npm run dev"
-  port = 5173
-  targetPort = 5173
-  autoLaunch = false
-
-# Environment variables should be configured in Netlify dashboard:
-#
-# Frontend (VITE_ prefix):
-# VITE_SUPABASE_URL
-# VITE_SUPABASE_ANON_KEY
-# VITE_PUSHER_INSTANCE_ID
-# VITE_API_URL
-#
-# Backend (Netlify Functions):
-# SUPABASE_URL
-# SUPABASE_ANON_KEY
-# SUPABASE_SERVICE_ROLE_KEY
-# PUSHER_INSTANCE_ID
-# PUSHER_SECRET_KEY
-# SENDGRID_API_KEY
-# SENDGRID_FROM_EMAIL
-# SENDGRID_TEMPLATE_ID_PROJECT_INVITE
-# SENDGRID_TEMPLATE_ID_TASK_ASSIGNED
-# SENDGRID_TEMPLATE_ID_PROJECT_UPDATE
-# SENDGRID_TEMPLATE_ID_DAILY_REPORT
-# SENDGRID_TEMPLATE_ID_DEADLINE_REMINDER
+  external_node_modules = ["@supabase/supabase-js"]
