@@ -1,4 +1,4 @@
-const { getSupabaseAdmin, getAuthenticatedUser, getUserProfile } = require('./utils/supabase');
+const { getSupabaseAdmin, getAuthenticatedUser, getUserProfile } = require('../utils/supabase');
 
 exports.handler = async (event) => {
   // CORS headers
