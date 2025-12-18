@@ -55,7 +55,7 @@ const Login = () => {
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">ConstructJunction</h1>
+          <h1 className="text-4xl font-bold text-white mb-2">Contracting Team</h1>
           <p className="text-gray-400">Sign in to your account</p>
         </div>
 
