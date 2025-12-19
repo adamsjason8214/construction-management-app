@@ -27,7 +27,8 @@ export const signUp = async (email, password, metadata) => {
     email,
     password,
     options: {
-      data: metadata
+      data: metadata,
+      emailRedirectTo: `${window.location.origin}/login`
     }
   });
 

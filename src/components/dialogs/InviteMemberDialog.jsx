@@ -47,7 +47,7 @@ const InviteMemberDialog = ({ isOpen, onClose }) => {
         throw new Error(data.error || 'Failed to invite user');
       }
 
-      toast.success(`Invitation sent to ${formData.email}! They will receive an email to set their password.`);
+      toast.success(`Invitation sent to ${formData.email}! Ask them to check their inbox and spam folder.`);
       setFormData({
         email: '',
         full_name: '',
@@ -135,7 +135,7 @@ const InviteMemberDialog = ({ isOpen, onClose }) => {
 
             <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-3 mt-4">
               <p className="text-xs text-gray-400">
-                The user will receive an email invitation to set their own password and join Construction Team.
+                The user will receive an email invitation to set their own password and join Construction Team. Ask them to check their spam folder if they don't see it.
               </p>
             </div>
 
