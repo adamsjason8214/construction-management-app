@@ -65,12 +65,15 @@ exports.handler = async (event) => {
 
     // INVITE USER (not create with password)
     // This triggers Supabase's "Set password" email
+    const redirectUrl = `${process.env.API_URL || 'https://flptconstruction.netlify.app'}/login`;
+    console.log('Inviting user with redirectTo:', redirectUrl);
+
     const { data: inviteData, error: inviteError } = await adminSupabase.auth.admin.inviteUserByEmail(email, {
       data: {
         full_name,
         role
       },
-      redirectTo: `${process.env.VITE_API_URL}/login`
+      redirectTo: redirectUrl
     });
 
     if (inviteError) {
