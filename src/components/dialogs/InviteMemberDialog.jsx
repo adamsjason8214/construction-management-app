@@ -9,7 +9,6 @@ const InviteMemberDialog = ({ isOpen, onClose }) => {
     email: '',
     full_name: '',
     role: 'worker',
-    password: '',
   });
 
   const handleChange = (e) => {
@@ -22,43 +21,42 @@ const InviteMemberDialog = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.full_name || !formData.password) {
-      toast.error('Email, name, and password are required');
-      return;
-    }
-
-    if (formData.password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+    if (!formData.email || !formData.full_name) {
+      toast.error('Email and name are required');
       return;
     }
 
     setLoading(true);
     try {
-      // Create user in Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            full_name: formData.full_name,
-            role: formData.role,
-          },
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/.netlify/functions/users-invite`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
         },
+        body: JSON.stringify({
+          email: formData.email,
+          full_name: formData.full_name,
+          role: formData.role,
+        }),
       });
 
-      if (authError) throw authError;
+      const data = await response.json();
 
-      toast.success(`User ${formData.full_name} created successfully!`);
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to invite user');
+      }
+
+      toast.success(`Invitation sent to ${formData.email}! They will receive an email to set their password.`);
       setFormData({
         email: '',
         full_name: '',
         role: 'worker',
-        password: '',
       });
       onClose();
     } catch (error) {
-      console.error('Error creating user:', error);
-      toast.error(error.message || 'Failed to create user');
+      console.error('Error inviting user:', error);
+      toast.error(error.message || 'Failed to invite user');
     } finally {
       setLoading(false);
     }
@@ -135,25 +133,9 @@ const InviteMemberDialog = ({ isOpen, onClose }) => {
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Initial Password *
-              </label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 bg-black border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
-                placeholder="••••••••"
-              />
-              <p className="mt-1 text-xs text-gray-500">Minimum 6 characters</p>
-            </div>
-
             <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-3 mt-4">
               <p className="text-xs text-gray-400">
-                The user will be created immediately and can log in with the email and password provided.
+                The user will receive an email invitation to set their own password and join Construction Team.
               </p>
             </div>
 
